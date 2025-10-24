@@ -1,70 +1,85 @@
-body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    margin: 0;
-    padding: 20px;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    color: white;
-    min-height: 100vh;
+// Инициализация Telegram Mini App
+let tg = window.Telegram.WebApp;
+tg.expand(); // Раскрываем на весь экран
+tg.ready();
+
+// Состояние питомца
+let petState = {
+    hunger: 50,
+    mood: 50,
+    level: 1,
+    stars: 0
+};
+
+// Обновление отображения статистики
+function updateStats() {
+    document.getElementById('hunger').textContent = petState.hunger;
+    document.getElementById('mood').textContent = petState.mood;
+    document.getElementById('level').textContent = petState.level;
 }
 
-.container {
-    max-width: 400px;
-    margin: 0 auto;
-    text-align: center;
+// Действия с питомцем
+function feed() {
+    if (petState.hunger < 100) {
+        petState.hunger += 15;
+        if (petState.hunger > 100) petState.hunger = 100;
+        updateStats();
+        showNotification('🍖 Питомец покормлен! +15 к сытости');
+        animatePet();
+    } else {
+        showNotification('🐾 Питомец уже сыт!');
+    }
 }
 
-#pet-container {
-    margin: 20px 0;
+function play() {
+    if (petState.mood < 100) {
+        petState.mood += 12;
+        petState.hunger -= 8;
+        if (petState.mood > 100) petState.mood = 100;
+        if (petState.hunger < 0) petState.hunger = 0;
+        updateStats();
+        showNotification('🎾 Питомец поиграл! +12 к настроению');
+        animatePet();
+    } else {
+        showNotification('🐾 Питомец уже счастлив!');
+    }
 }
 
-#pet-image {
-    width: 150px;
-    height: 150px;
-    background: #fff;
-    border-radius: 50%;
-    border: 3px solid gold;
+// Анимация питомца
+function animatePet() {
+    const petImage = document.getElementById('pet-image');
+    petImage.style.animation = 'none';
+    setTimeout(() => {
+        petImage.style.animation = 'bounce 0.5s ease-in-out';
+    }, 10);
 }
 
-.stats {
-    background: rgba(255, 255, 255, 0.1);
-    padding: 15px;
-    border-radius: 10px;
-    margin: 15px 0;
+// Магазин
+function openShop() {
+    document.getElementById('shop').classList.remove('hidden');
 }
 
-.actions button {
-    background: #ffd700;
-    border: none;
-    padding: 12px 20px;
-    margin: 5px;
-    border-radius: 25px;
-    font-size: 16px;
-    cursor: pointer;
-    transition: transform 0.2s;
+function closeShop() {
+    document.getElementById('shop').classList.add('hidden');
 }
 
-.actions button:hover {
-    transform: scale(1.05);
+function buyItem(item) {
+    showNotification('🎉 Скоро можно будет покупать за звёзды!');
+    // Здесь позже будет вызов платежного API Telegram
 }
 
-.shop {
-    background: rgba(255, 255, 255, 0.9);
-    color: #333;
-    padding: 20px;
-    border-radius: 10px;
-    margin-top: 20px;
+// Вспомогательная функция
+function showNotification(message) {
+    // Простой alert для начала, потом можно сделать красивый toast
+    alert(message);
 }
 
-.shop button {
-    background: #28a745;
-    color: white;
-    border: none;
-    padding: 10px 15px;
-    margin: 5px;
-    border-radius: 20px;
-    cursor: pointer;
-}
+// Инициализация
+updateStats();
 
-.hidden {
-    display: none;
-}
+// Автоматическое уменьшение параметров со временем
+setInterval(() => {
+    if (petState.hunger > 0) petState.hunger -= 1;
+    if (petState.mood > 0) petState.mood -= 1;
+    updateStats();
+}, 30000); // Каждые 30 секунд
