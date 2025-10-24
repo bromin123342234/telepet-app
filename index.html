@@ -10,25 +10,26 @@
 <body>
     <div class="container">
         <div id="pet-container">
-            <img id="pet-image" src="" alt="Ваш питомец">
+            <img id="pet-image" src="https://avatars.mds.yandex.net/i?id=7f58d2c6b63bb8e9c9d59d1e3c8e31ce6c78b2b8-12501723-images-thumbs&n=13" alt="Ваш питомец">
         </div>
         
         <div class="stats">
-            <div>Сытость: <span id="hunger">50</span>/100</div>
-            <div>Настроение: <span id="mood">50</span>/100</div>
-            <div>Уровень: <span id="level">1</span></div>
+            <div class="stat-item">🍖 Сытость: <span id="hunger">50</span>/100</div>
+            <div class="stat-item">😊 Настроение: <span id="mood">50</span>/100</div>
+            <div class="stat-item">⭐ Уровень: <span id="level">1</span></div>
         </div>
         
         <div class="actions">
-            <button onclick="feed()">Покормить 🍖</button>
-            <button onclick="play()">Поиграть 🎾</button>
-            <button onclick="openShop()">Магазин ⭐</button>
+            <button onclick="feed()" class="action-btn">🍖 Покормить</button>
+            <button onclick="play()" class="action-btn">🎾 Поиграть</button>
+            <button onclick="openShop()" class="action-btn shop-btn">⭐ Магазин</button>
         </div>
         
         <div id="shop" class="shop hidden">
-            <h3>Магазин</h3>
-            <button onclick="buyItem('treat')">Купить Вкусняшку (50 ⭐)</button>
-            <button onclick="closeShop()">Закрыть</button>
+            <h3>🛍️ Магазин</h3>
+            <button onclick="buyItem('treat')" class="shop-item">🍬 Вкусняшка (50 ⭐)</button>
+            <button onclick="buyItem('toy')" class="shop-item">🧸 Игрушка (70 ⭐)</button>
+            <button onclick="closeShop()" class="close-btn">✖ Закрыть</button>
         </div>
     </div>
     
