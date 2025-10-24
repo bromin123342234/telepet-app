@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TelePet - Ваш цифровой питомец!</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div id="pet-container">
+            <img id="pet-image" src="" alt="Ваш питомец">
+        </div>
+        
+        <div class="stats">
+            <div>Сытость: <span id="hunger">50</span>/100</div>
+            <div>Настроение: <span id="mood">50</span>/100</div>
+            <div>Уровень: <span id="level">1</span></div>
+        </div>
+        
+        <div class="actions">
+            <button onclick="feed()">Покормить 🍖</button>
+            <button onclick="play()">Поиграть 🎾</button>
+            <button onclick="openShop()">Магазин ⭐</button>
+        </div>
+        
+        <div id="shop" class="shop hidden">
+            <h3>Магазин</h3>
+            <button onclick="buyItem('treat')">Купить Вкусняшку (50 ⭐)</button>
+            <button onclick="closeShop()">Закрыть</button>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
